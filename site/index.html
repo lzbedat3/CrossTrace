@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CrossTrace · Gantt</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
 <meta name="description" content="CrossTrace work plan and Gantt chart">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect x=%224%22 y=%226%22 width=%2214%22 height=%225%22 rx=%222%22 fill=%22%233b6fd8%22/%3E%3Crect x=%2210%22 y=%2214%22 width=%2216%22 height=%225%22 rx=%222%22 fill=%22%231f9d8a%22/%3E%3Crect x=%226%22 y=%2222%22 width=%2212%22 height=%225%22 rx=%222%22 fill=%22%23c27a12%22/%3E%3C/svg%3E">
 <style>
@@ -13,7 +16,10 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121214;--card:#1a1a1d;--ink:#ececee;--mute:#a3a3ab;--faint:#77777f;--line:#2a2a2f;--soft:#222226;--hover:#202024;--arrow:#80808a;--sum:#45454d;--hol:rgba(229,166,72,.12);--exam:rgba(160,160,190,.09);--good:#3ccf8e}}
 :root[data-theme="dark"]{--bg:#121214;--card:#1a1a1d;--ink:#ececee;--mute:#a3a3ab;--faint:#77777f;--line:#2a2a2f;--soft:#222226;--hover:#202024;--arrow:#80808a;--sum:#45454d;--hol:rgba(229,166,72,.12);--exam:rgba(160,160,190,.09);--good:#3ccf8e}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,"SF Pro Text","Segoe UI","Arial Hebrew",Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Heebo",-apple-system,"Arial Hebrew",Arial,sans-serif}
+:root[lang=en] body{font-family:"Ubuntu",-apple-system,"Segoe UI",Arial,sans-serif}
+:root[lang=he] bdi{font-family:"Ubuntu","Heebo",sans-serif}
+#panel .alt[dir=ltr]{font-family:"Ubuntu",sans-serif}#panel .alt[dir=rtl]{font-family:"Heebo",sans-serif}
 button{font:inherit}
 .wrap{max-width:1600px;margin:0 auto;padding:24px 20px 48px}
 .top{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
