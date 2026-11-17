@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CrossTrace · Gantt</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="CrossTrace work plan and Gantt chart">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect x=%224%22 y=%226%22 width=%2214%22 height=%225%22 rx=%222%22 fill=%22%233b6fd8%22/%3E%3Crect x=%2210%22 y=%2214%22 width=%2216%22 height=%225%22 rx=%222%22 fill=%22%231f9d8a%22/%3E%3Crect x=%226%22 y=%2222%22 width=%2212%22 height=%225%22 rx=%222%22 fill=%22%23c27a12%22/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f6f6f3;--card:#fff;--ink:#1c1c1f;--mute:#66666d;--faint:#9a9aa2;--line:#e7e7e2;--soft:#f1f1ec;--hover:#f8f8f3;
+  --today:#e5484d;--crit:#e5484d;--good:#1f9d6a;--hol:rgba(229,166,72,.15);--exam:rgba(120,120,150,.10);--arrow:#8d8d97;--sum:#cfcfd5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121214;--card:#1a1a1d;--ink:#ececee;--mute:#a3a3ab;--faint:#77777f;--line:#2a2a2f;--soft:#222226;--hover:#202024;--arrow:#80808a;--sum:#45454d;--hol:rgba(229,166,72,.12);--exam:rgba(160,160,190,.09);--good:#3ccf8e}}
+:root[data-theme="dark"]{--bg:#121214;--card:#1a1a1d;--ink:#ececee;--mute:#a3a3ab;--faint:#77777f;--line:#2a2a2f;--soft:#222226;--hover:#202024;--arrow:#80808a;--sum:#45454d;--hol:rgba(229,166,72,.12);--exam:rgba(160,160,190,.09);--good:#3ccf8e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,"SF Pro Text","Segoe UI","Arial Hebrew",Arial,sans-serif}
+button{font:inherit}
+.wrap{max-width:1600px;margin:0 auto;padding:24px 20px 48px}
+.top{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+.top .t{flex:1;min-width:0}
+h1{font-size:24px;margin:0;letter-spacing:-.01em}
+.sub{color:var(--mute);margin-top:2px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card);flex:none}
+.lang button{border:0;background:transparent;color:var(--ink);padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600}
+.lang button.on{background:var(--ink);color:var(--bg)}
+
+.now{display:grid;grid-template-columns:1fr 0.8fr 1.3fr 1.3fr;gap:10px;margin-bottom:12px;align-items:start}
+@media (max-width:1100px){.now{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.now{grid-template-columns:1fr}}
+.more{color:var(--mute);font-size:12px;padding:0 4px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.box h3{margin:0 0 8px;font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.big{font-size:20px;font-weight:800;line-height:1.15}
+.big small{display:block;font-size:13px;font-weight:500;color:var(--mute);margin-top:3px}
+.items{display:flex;flex-direction:column;gap:5px}
+.it{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;border-radius:8px;padding:2px 4px;margin:0 -4px}
+.it:hover{background:var(--hover)}
+.it i{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+.it .w{color:var(--mute);margin-inline-start:auto;white-space:nowrap;font-size:12px}
+.it .n{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.none{color:var(--faint);font-size:13px}
+
+.read{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px;margin-bottom:12px;font-size:12.5px;color:var(--mute)}
+.read b{color:var(--ink);font-weight:700}
+.sw{display:inline-block;vertical-align:middle;margin-inline-end:6px}
+.sw.bar{width:24px;height:10px;border-radius:4px;background:#8a8a94}
+.sw.dot{width:9px;height:9px;border-radius:50%}
+.sw.dia{width:10px;height:10px;transform:rotate(45deg);border-radius:2px;background:#8a8a94;margin-inline:3px 8px}
+.sw.dia.o{background:transparent;border:2px solid #8a8a94}
+.sw.today{width:2px;height:14px;background:var(--today)}
+.sw.hol{width:16px;height:12px;background:var(--hol);border:1px solid rgba(229,166,72,.45)}
+.sw.exam{width:16px;height:12px;background:var(--exam);border:1px solid var(--line)}
+
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.ppl{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:7px}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.chip small{color:var(--mute)}
+.chip.on{border-color:var(--c,var(--ink));box-shadow:0 0 0 1px var(--c,var(--ink)) inset;background:color-mix(in srgb,var(--c,var(--ink)) 9%,var(--card))}
+.seg{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+.seg button{border:0;background:transparent;color:var(--ink);font-size:13px;padding:5px 13px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.tog{display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;user-select:none;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.tog input{accent-color:var(--ink);margin:0}
+.sp{flex:1}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow-x:auto;position:relative}
+.grid{min-width:1180px;position:relative}
+.head,.row,.ph,.part{display:grid;grid-template-columns:430px minmax(0,1fr)}
+.head{position:sticky;top:0;z-index:6;background:var(--card);border-bottom:1px solid var(--line)}
+.head .nm{padding:10px 16px;font-weight:700;color:var(--mute);font-size:12px;display:flex;align-items:flex-end}
+.axis{position:relative;height:34px}
+.mon{position:absolute;top:0;height:34px;display:flex;align-items:center;justify-content:center;border-inline-start:1px solid var(--line);font-size:12.5px;font-weight:700}
+.ev{position:absolute;top:30px;height:18px;font-size:10.5px;color:var(--mute);display:flex;align-items:center;justify-content:center;white-space:nowrap;border-radius:4px;overflow:hidden}
+.ev.holiday{background:var(--hol)}.ev.exams{background:var(--exam)}
+.part{background:var(--soft);border-top:1px solid var(--line)}
+.part div{padding:9px 16px;font-weight:800;font-size:14px}
+.ph{border-top:1px solid var(--line);cursor:pointer}
+.ph:hover{background:var(--hover)}
+.ph .nm{padding:8px 16px;font-weight:700;font-size:13px;display:flex;gap:8px;align-items:center}
+.ph .car{color:var(--mute);font-size:11px;width:12px;transition:transform .15s;display:inline-block}
+.ph.closed .car{transform:rotate(90deg)}
+[dir=ltr] .ph.closed .car{transform:rotate(-90deg)}
+.ph .nm small{color:var(--mute);font-weight:500}
+.row{border-top:1px solid var(--line);cursor:pointer;min-height:38px}
+.row:hover,.row.hl{background:var(--hover)}
+.row.sel{background:color-mix(in srgb,var(--ink) 6%,var(--card))}
+.row.dim{opacity:.25}
+.row.me{background:color-mix(in srgb,var(--ink) 7%,var(--card))}
+.row.before .b,.row.before .ms,.row.after .b,.row.after .ms,.row.me .b,.row.me .ms{box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--c)}
+.rel{display:none;font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.row.before .rel,.row.after .rel{display:inline-block}
+.row.before .rel{background:#fff1d6;color:#8a5a00}
+.row.after .rel{background:#e3efff;color:#1d4fa3}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .row.before .rel{background:#3a2c10;color:#f5c66b}:root:not([data-theme=light]) .row.after .rel{background:#13284a;color:#8cb8ff}}
+.row .nm{padding:7px 16px;padding-inline-start:12px;display:grid;grid-template-columns:32px 1fr auto auto;gap:8px;align-items:center;min-width:0}
+.id{font-size:11px;color:var(--faint);font-weight:700}
+.tn{font-size:13.5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tn bdi,#panel h2 bdi,.it bdi{white-space:nowrap}
+.own{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--mute);white-space:nowrap}
+.own i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.tr{position:relative}
+.bands{position:absolute;inset:0;pointer-events:none}
+.band{position:absolute;top:0;bottom:0}
+.band.holiday{background:var(--hol)}.band.exams{background:var(--exam)}
+.ml{position:absolute;top:0;bottom:0;border-inline-start:1px solid var(--line)}
+.b{position:absolute;top:11px;height:16px;border-radius:5px;background:var(--c);min-width:6px}
+.b.prog{background:repeating-linear-gradient(-45deg,var(--c) 0 6px,color-mix(in srgb,var(--c) 62%,#fff) 6px 12px)}
+.b.buf{background:repeating-linear-gradient(-45deg,var(--sum) 0 5px,transparent 5px 10px);border:1px dashed var(--faint)}
+.b.crit,.ms.crit{box-shadow:0 0 0 2px var(--crit)}
+.sum{position:absolute;top:14px;height:8px;border-radius:4px;background:var(--sum)}
+.win{position:absolute;top:13px;height:12px;border:1.5px dashed var(--c);border-radius:6px;background:color-mix(in srgb,var(--c) 7%,transparent)}
+.ms{position:absolute;top:11px;width:16px;height:16px;transform:translateX(50%) rotate(45deg);border-radius:3px;background:var(--c)}
+[dir=ltr] .ms{transform:translateX(-50%) rotate(45deg)}
+.ms.o{background:var(--card);border:2.5px solid var(--c)}
+.mlab{position:absolute;top:10px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.todayl{position:absolute;width:0;border-left:2px solid var(--today);z-index:4;pointer-events:none}
+.todayl span{position:absolute;top:-1px;background:var(--today);color:#fff;font-size:11px;padding:0 6px;border-radius:4px;white-space:nowrap}
+[dir=rtl] .todayl span{right:4px}
+[dir=ltr] .todayl span{left:4px}
+.hint{font-size:12px;color:var(--mute);margin-top:10px}
+
+#tip{position:fixed;z-index:30;background:var(--ink);color:var(--bg);border-radius:8px;padding:6px 10px;font-size:12.5px;pointer-events:none;display:none;max-width:340px}
+#panel{position:fixed;inset-inline-end:16px;top:16px;bottom:16px;width:390px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.18);z-index:40;padding:22px 20px;overflow:auto;transition:transform .2s ease;transform:translateX(-120%)}
+[dir=ltr] #panel{transform:translateX(120%)}
+#panel.open,[dir=ltr] #panel.open{transform:none}
+#panel .x{position:absolute;inset-inline-end:14px;top:12px;border:0;background:var(--soft);color:var(--ink);width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer}
+#panel .tag{display:inline-flex;gap:6px;font-size:12px;color:var(--mute);background:var(--soft);border-radius:999px;padding:2px 10px;margin-bottom:8px;max-width:calc(100% - 40px)}
+#panel h2{font-size:19px;margin:2px 0 4px;line-height:1.35}
+#panel .alt{color:var(--mute);font-size:12.5px;margin-bottom:14px}
+#panel dl{margin:0;display:grid;grid-template-columns:100px 1fr;gap:9px 12px;font-size:13.5px}
+#panel dt{color:var(--mute)}
+#panel dd{margin:0}
+#panel .done{margin-top:16px;padding:12px 14px;background:var(--soft);border-radius:12px;font-size:13.5px}
+#panel .done b{display:block;margin-bottom:4px}
+#panel a{color:inherit;text-decoration:underline;text-decoration-color:var(--faint);cursor:pointer}
+.risk{color:var(--crit);font-weight:700}.ok{color:var(--good);font-weight:700}
+@media (max-width:760px){.wrap{padding:16px}.top{flex-direction:column}
+  #panel,[dir=ltr] #panel{inset-inline:8px;top:auto;bottom:8px;width:auto;max-height:72vh;transform:translateY(120%)}#panel.open{transform:none}}
+@media print{.controls,.read,.lang,.now,#panel,#tip,.hint{display:none}.card{overflow:visible}.head{position:static}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="t"><h1 id="title"></h1><div class="sub" id="sub"></div></div>
+    <div class="lang" id="lang"><button data-l="he">עברית</button><button data-l="en">English</button></div>
+  </div>
+  <div class="now" id="now"></div>
+  <div class="read" id="read"></div>
+  <div class="controls">
+    <div class="ppl" id="ppl"></div>
+    <div class="sp"></div>
+    <div class="seg" id="zoom"></div>
+    <label class="tog"><input type="checkbox" id="crit"><span id="critL"></span></label>
+  </div>
+  <div class="card"><div class="grid" id="grid"></div></div>
+  <div class="hint" id="hint"></div>
+</div>
+<div id="tip"></div>
+<aside id="panel" aria-live="polite"></aside>
+
+<script>
+const DATA = /*DATA*/null;
+const MS = 864e5, P = s => new Date(s + 'T00:00:00');
+const TODAY = (() => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); })();
+const team = DATA.team, tasks = DATA.tasks, byId = Object.fromEntries(tasks.map(t => [t.id, t]));
+const phases = DATA.phases, phaseOf = Object.fromEntries(phases.map(p => [p.id, p]));
+tasks.forEach(t => { t.s = P(t.start); t.e = P(t.end); t.days = Math.round((t.e - t.s) / MS) + 1;
+  t.dl = t.deps.map(d => ({id: d.replace('~', ''), ss: d.endsWith('~')})); });
+const succ = {}; tasks.forEach(t => t.dl.forEach(d => (succ[d.id] ||= []).push({t, ss: d.ss})));
+
+// ---- slack: days a task can slip before the final presentation moves
+const final = byId[DATA.final_id] || tasks[tasks.length - 1];
+const ls = {}; tasks.forEach(t => ls[t.id] = t === final ? 0 : Math.max(0, Math.round((final.s - t.e) / MS)));
+for (let pass = 0; pass < tasks.length; pass++) { let ch = false;
+  for (const t of tasks) { if (t === final) continue;
+    for (const o of succ[t.id] || []) { const v = Math.max(0, Math.round(o.ss ? ls[o.t.id] : ls[o.t.id] + (o.t.s - t.e) / MS - 1));
+      if (v < ls[t.id]) { ls[t.id] = v; ch = true; } } }
+  if (!ch) break; }
+tasks.forEach(t => t.slack = ls[t.id]);
+const critSet = new Set([final.id]);
+for (const t of [...tasks].sort((a, b) => b.e - a.e)) if (critSet.has(t.id)) t.dl.forEach(d => { if (byId[d.id].slack <= 2) critSet.add(d.id); });
+tasks.forEach(t => t.crit = critSet.has(t.id) && t.s <= final.s);
+
+// ---- language
+const T = {
+  he: {title: DATA.title_he, sup: "מנחה: פרופ' מור", from: 'מ־', to: 'עד', upd: 'עודכן',
+    nowH: 'עכשיו בעבודה', soonH: 'מתחיל בשבועיים הקרובים', nextH: 'אבן הדרך הבאה', finalH: 'ההצגה הסופית',
+    inDays: n => n === 0 ? 'היום' : n === 1 ? 'מחר' : `בעוד ${n} ימים`, until: d => `עד ${d}`, starts: d => `מתחיל ${d}`, nothing: 'אין',
+    how: 'איך לקרוא:', bar: 'משימה (הפס = חלון הזמן שלה)', color: 'צבע = אחראי/ת:', ms: 'אבן דרך / הגשה', upd2: "עדכון לפרופ' מור (חלון מוצע)",
+    today: 'היום', hol: 'חג', exams: 'מבחנים (משוער)', click: 'לחצו על משימה', clickRest: 'לכל הפרטים',
+    everyone: 'כולם', tasksN: n => `${n} משימות`, zoom: ['כל השנה', "חלק א'", "חלק ב'"], crit: 'משימות שאסור שיתעכבו', relBefore: 'צריך לפני', relAfter: 'בא אחרי',
+    hint: 'טיפ: לחיצה על משימה פותחת את הפרטים שלה ומסמנת מה צריך לפניה ומה בא אחריה. לחיצה על שם שלב מקפלת אותו.',
+    task: 'משימה', partA: "חלק א' · סמסטר א'", partB: "חלק ב' · סמסטר ב'", items: n => `${n} פריטים`,
+    owner: 'אחראי/ת', when: 'מתי', effort: 'היקף עבודה', status: 'סטטוס', dependsOn: 'תלויה ב', unlocks: 'פותחת את', flex: 'גמישות', doneT: 'מתי זה נחשב "בוצע"',
+    win: (a, b) => `חלון מוצע: ${a} עד ${b}`, span: (a, b, n) => `${a} עד ${b} (${n} ימים)`, sessions: n => `כ-${n} מפגשי עבודה של 3–4 שעות`, buffer: 'אין עבודה מתוכננת (רזרבה)',
+    st: {in_progress: 'בביצוע', done: 'הושלם', todo: 'טרם התחיל'}, noDeps: 'לא תלויה בשום משימה', par: 'אפשר להתחיל במקביל',
+    notBlocking: 'לא חוסם שום משימה', mustNot: 'אסור שתתעכב: עיכוב יזיז את ההצגה הסופית', canSlip: n => [`אפשר להתעכב עד ${n} ימים`, 'בלי להזיז את ההצגה הסופית'], close: 'סגירה', more: n => `ועוד ${n}`},
+  en: {title: DATA.title_en, sup: 'Supervisor: Prof. Mor', from: 'From', to: 'to', upd: 'Updated',
+    nowH: 'In progress now', soonH: 'Starting in the next 2 weeks', nextH: 'Next milestone', finalH: 'Final presentation',
+    inDays: n => n === 0 ? 'today' : n === 1 ? 'tomorrow' : `in ${n} days`, until: d => `until ${d}`, starts: d => `starts ${d}`, nothing: 'Nothing',
+    how: 'How to read:', bar: 'Task (bar = its time window)', color: 'Colour = owner:', ms: 'Milestone / submission', upd2: 'Update to Prof. Mor (proposed window)',
+    today: 'Today', hol: 'Holiday', exams: 'Exams (est.)', click: 'Click a task', clickRest: 'for full details',
+    everyone: 'Everyone', tasksN: n => `${n} tasks`, zoom: ['Full year', 'Part A', 'Part B'], crit: 'Tasks that must not slip', relBefore: 'needed first', relAfter: 'comes after',
+    hint: 'Tip: click a task to open its details and mark what is needed first and what comes after. Click a phase name to fold it.',
+    task: 'Task', partA: 'Part A · Semester 1', partB: 'Part B · Semester 2', items: n => `${n} items`,
+    owner: 'Owner', when: 'When', effort: 'Effort', status: 'Status', dependsOn: 'Depends on', unlocks: 'Unlocks', flex: 'Flexibility', doneT: 'Done when',
+    win: (a, b) => `Proposed window: ${a} – ${b}`, span: (a, b, n) => `${a} – ${b} (${n} days)`, sessions: n => `About ${n} work sessions of 3–4 hours`, buffer: 'No planned work (buffer)',
+    st: {in_progress: 'In progress', done: 'Done', todo: 'Not started'}, noDeps: 'Nothing', par: 'can start alongside',
+    notBlocking: 'Blocks no task', mustNot: 'Must not slip: a delay moves the final presentation', canSlip: n => [`Can slip up to ${n} days`, 'without moving the final presentation'], close: 'Close', more: n => `and ${n} more`}
+};
+let lang = (() => { const q = new URLSearchParams(location.search).get('lang'); if (q === 'en' || q === 'he') return q;
+  try { return localStorage.getItem('ct-gantt-lang') || 'he'; } catch (e) { return 'he'; } })();
+const t_ = k => T[lang][k];
+const nm = o => (lang === 'he' ? o.name_he : o.name_en) || o.name_he;
+const ownerName = k => nm(team[k]);
+const dm = d => lang === 'he' ? `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}` : d.toLocaleDateString('en-GB', {day: 'numeric', month: 'short'});
+const dmy = d => lang === 'he' ? `${dm(d)}.${d.getFullYear()}` : d.toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'});
+// in Hebrew text, keep each English phrase as one unit
+const bd = s => lang === 'he' ? String(s).replace(/[A-Za-z][A-Za-z0-9 .\-+\/&]*[A-Za-z0-9]/g, m => `<bdi>${m}</bdi>`) : String(s);
+const doneText = t => lang === 'he' ? bd(t.done_he || t.done) : t.done;
+
+// ---- state
+let zoom = 'all', who = null, critOnly = false, sel = null, hov = null;
+const closed = new Set();
+const range = () => zoom === 'A' ? [P('2026-11-01'), P('2027-02-21')] : zoom === 'B' ? [P('2027-02-08'), P('2027-06-30')] : [P('2026-11-01'), P('2027-06-30')];
+const S = 'inset-inline-start';
+
+function chrome() {
+  document.documentElement.lang = lang; document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+  document.title = lang === 'he' ? 'CrossTrace · גאנט' : 'CrossTrace · Gantt';
+  document.querySelectorAll('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
+  document.getElementById('title').textContent = t_('title');
+  document.getElementById('sub').innerHTML = `${['L', 'N', 'Q'].map(ownerName).join(', ')} · ${t_('sup')} · ${t_('from')}${lang === 'en' ? ' ' : ''}<bdi>${dmy(tasks[0].s)}</bdi> ${t_('to')} <bdi>${dmy(final.s)}</bdi> · ${t_('upd')} <bdi>${dm(TODAY)}</bdi>`;
+  const days = d => Math.round((d - TODAY) / MS);
+  const nextM = tasks.filter(t => t.milestone && !t.checkin && t.s >= TODAY).sort((a, b) => a.s - b.s)[0];
+  const active = tasks.filter(t => !t.milestone && !t.buffer && t.s <= TODAY && t.e >= TODAY);
+  const soon = tasks.filter(t => !t.buffer && t.s > TODAY && days(t.s) <= 14).sort((a, b) => a.s - b.s);
+  const item = (t, w) => `<div class="it" data-open="${t.id}" style="--c:${team[t.owner].color}"><i></i><span class="n">${bd(nm(t))}</span><span class="w"><bdi>${w}</bdi></span></div>`;
+  document.getElementById('now').innerHTML = `
+    <div class="box"><h3>${t_('nextH')}</h3>${nextM ? `<div class="big" data-open="${nextM.id}" style="cursor:pointer">${bd(nm(nextM))}<small><bdi>${dmy(nextM.s)}</bdi> · ${t_('inDays')(days(nextM.s))}</small></div>` : ''}</div>
+    <div class="box"><h3>${t_('finalH')}</h3><div class="big"><bdi>${dmy(final.s)}</bdi><small>${t_('inDays')(days(final.s))}</small></div></div>
+    <div class="box"><h3>${t_('nowH')}</h3><div class="items">${active.map(t => item(t, t_('until')(dm(t.e)))).join('') || `<div class="none">${t_('nothing')}</div>`}</div></div>
+    <div class="box"><h3>${t_('soonH')}</h3><div class="items">${soon.slice(0, 4).map(t => item(t, t_('starts')(dm(t.s)))).join('') || `<div class="none">${t_('nothing')}</div>`}${soon.length > 4 ? `<div class="more">${t_('more')(soon.length - 4)}</div>` : ''}</div></div>`;
+  document.getElementById('read').innerHTML = `${Object.values(team).map(v => `<span><i class="sw dot" style="background:${v.color}"></i>${nm(v)}</span>`).join('')}
+    <span><i class="sw dia"></i>${t_('ms')}</span><span><i class="sw dia o"></i>${t_('upd2')}</span><span><i class="sw today"></i>${t_('today')}</span>`;
+  document.getElementById('ppl').innerHTML = `<button class="chip ${who ? '' : 'on'}" data-who="">${t_('everyone')}</button>` + ['L', 'N', 'Q'].map(k =>
+    `<button class="chip ${who === k ? 'on' : ''}" data-who="${k}" style="--c:${team[k].color}"><i></i>${nm(team[k])}<small>${t_('tasksN')(tasks.filter(t => t.owner === k && !t.milestone).length)}</small></button>`).join('');
+  document.getElementById('zoom').innerHTML = ['all', 'A', 'B'].map((z, i) => `<button data-z="${z}" class="${zoom === z ? 'on' : ''}">${t_('zoom')[i]}</button>`).join('');
+  document.getElementById('critL').textContent = t_('crit');
+  document.getElementById('hint').textContent = t_('hint');
+}
+
+function render() {
+  const [R0, R1] = range(), span = (R1 - R0) / MS + 1, X = d => ((d - R0) / MS) / span * 100;
+  const loc = lang === 'he' ? 'he-IL' : 'en-GB';
+  const months = [];
+  for (let m = new Date(R0.getFullYear(), R0.getMonth(), 1); m <= R1; m = new Date(m.getFullYear(), m.getMonth() + 1, 1)) months.push(m);
+  const mlines = months.map(m => `<div class="ml" style="${S}:${Math.max(0, X(m))}%"></div>`).join('');
+  const bandsHtml = '';
+  const bands = `<div class="bands">${bandsHtml}${mlines}</div>`;
+
+  let h = `<div class="head"><div class="nm">${t_('task')}</div><div class="axis">`;
+  months.forEach(m => { const a = Math.max(0, X(m)), b = Math.min(100, X(new Date(m.getFullYear(), m.getMonth() + 1, 1)));
+    if (b > a) h += `<div class="mon" style="${S}:${a}%;width:${b - a}%">${m.toLocaleDateString(loc, {month: 'long'})} ${String(m.getFullYear()).slice(2)}</div>`; });
+  h += `</div></div>`;
+
+  let lastPart = null;
+  for (const ph of phases) {
+    const list = tasks.filter(t => t.phase === ph.id && t.e >= R0 && t.s <= R1);
+    if (!list.length) continue;
+    if (ph.part !== lastPart) { h += `<div class="part"><div>${ph.part === 'A' ? t_('partA') : t_('partB')}</div><div></div></div>`; lastPart = ph.part; }
+    const s = new Date(Math.min(...list.map(t => t.s))), e = new Date(Math.max(...list.map(t => t.e)));
+    const isC = closed.has(ph.id);
+    h += `<div class="ph ${isC ? 'closed' : ''}" data-ph="${ph.id}"><div class="nm"><span class="car">▾</span>${bd(nm(ph))}<small>· ${t_('items')(list.length)}</small></div>
+      <div class="tr">${bands}<div class="sum" style="${S}:${X(s)}%;width:${((e - s) / MS + 1) / span * 100}%"></div></div></div>`;
+    if (isC) continue;
+    for (const t of list) {
+      const c = team[t.owner].color;
+      const dim = (who && t.owner !== who && t.owner !== 'ALL') || (critOnly && !t.crit);
+      const crit = critOnly && t.crit ? 'crit' : '';
+      let shape;
+      if (t.milestone) {
+        const mx = X(t.s) + 50 / span;
+        const win = t.window_start ? `<div class="win" style="${S}:${X(P(t.window_start))}%;width:${((P(t.window_end) - P(t.window_start)) / MS + 1) / span * 100}%;--c:${c}"></div>` : '';
+        shape = `${win}<div class="ms ${t.checkin ? 'o' : ''} ${crit}" data-id="${t.id}" style="${S}:${mx}%;--c:${c}"></div><span class="mlab" style="${S}:calc(${mx}% + 14px)"><bdi>${dm(t.s)}</bdi></span>`;
+      } else {
+        shape = `<div class="b ${crit} ${t.status === 'in_progress' ? 'prog' : ''} ${t.buffer ? 'buf' : ''}" data-id="${t.id}" style="${S}:${X(t.s)}%;width:${t.days / span * 100}%;--c:${c}"></div>`;
+      }
+      h += `<div class="row ${dim ? 'dim' : ''} ${sel === t.id ? 'sel' : ''}" data-row="${t.id}">
+        <div class="nm"><span class="id"><bdi>${t.id}</bdi></span><span class="tn">${bd(nm(t))}</span><span class="rel"></span><span class="own" style="--c:${c}"><i></i>${ownerName(t.owner)}</span></div>
+        <div class="tr">${bands}${shape}</div></div>`;
+    }
+  }
+  h += `<div class="todayl" id="today"><span>${t_('today')}</span></div>`;
+  document.getElementById('grid').innerHTML = h;
+  requestAnimationFrame(overlay);
+}
+
+function overlay() {
+  const rtl = lang === 'he', g = document.getElementById('grid'), gr = g.getBoundingClientRect(), [R0, R1] = range(), span = (R1 - R0) / MS + 1;
+  const tr = g.querySelector('.tr'), td = document.getElementById('today');
+  if (!tr || !td) return;
+  if (TODAY >= R0 && TODAY <= R1) { const r = tr.getBoundingClientRect(), head = g.querySelector('.head').offsetHeight, f = ((TODAY - R0) / MS + .5) / span * r.width;
+    td.style.display = 'block'; td.style.left = (rtl ? r.right - gr.left - f : r.left - gr.left + f) + 'px';
+    td.style.top = head + 'px'; td.style.height = (g.scrollHeight - head) + 'px'; } else td.style.display = 'none';
+  const focus = sel;
+  g.querySelectorAll('.row').forEach(r => r.classList.remove('me', 'before', 'after'));
+  if (!focus) return;
+  const before = new Set(byId[focus].dl.map(d => d.id)), after = new Set((succ[focus] || []).map(o => o.t.id));
+  g.querySelectorAll('.row').forEach(r => { const id = r.dataset.row, rel = r.querySelector('.rel');
+    if (id === focus) r.classList.add('me');
+    else if (before.has(id)) { r.classList.add('before'); rel.textContent = t_('relBefore'); }
+    else if (after.has(id)) { r.classList.add('after'); rel.textContent = t_('relAfter'); } });
+}
+
+// ---- detail panel
+const panel = document.getElementById('panel');
+const link = id => `<a data-go="${id}"><bdi>${id}</bdi> · ${bd(nm(byId[id]))}</a>`;
+function openTask(id) {
+  const t = byId[id], c = team[t.owner].color; sel = id;
+  const when = t.window_start ? t_('win')(`<bdi>${dm(P(t.window_start))}</bdi>`, `<bdi>${dm(P(t.window_end))}</bdi>`)
+    : t.milestone ? `<bdi>${dmy(t.s)}</bdi>` : t_('span')(`<bdi>${dm(t.s)}</bdi>`, `<bdi>${dmy(t.e)}</bdi>`, t.days);
+  const effort = t.buffer ? t_('buffer') : t.milestone ? '—' : t_('sessions')(t.effort);
+  const deps = t.dl.length ? t.dl.map(d => link(d.id) + (d.ss ? ` <small>(${t_('par')})</small>` : '')).join('<br>') : t_('noDeps');
+  const nxt = (succ[t.id] || []).map(o => link(o.t.id)).join('<br>') || '—';
+  const cs = t_('canSlip')(t.slack);
+  const slack = t.checkin ? t_('notBlocking') : t.slack <= 2 ? `<span class="risk">${t_('mustNot')}</span>` : `<span class="ok">${cs[0]}</span> ${cs[1]}`;
+  const alt = lang === 'he' ? `<div class="alt" dir="ltr" style="text-align:left">${t.name_en}</div>` : `<div class="alt" dir="rtl" style="text-align:right">${t.name_he}</div>`;
+  panel.innerHTML = `<button class="x" aria-label="${t_('close')}">×</button>
+    <div class="tag"><bdi>${t.id}</bdi> · ${bd(nm(phaseOf[t.phase]))}</div>
+    <h2>${bd(nm(t))}</h2>${alt}
+    <dl>
+      <dt>${t_('owner')}</dt><dd><span class="own" style="--c:${c};font-size:13.5px;color:var(--ink)"><i></i>${ownerName(t.owner)}</span></dd>
+      <dt>${t_('when')}</dt><dd>${when}</dd>
+      <dt>${t_('effort')}</dt><dd>${effort}</dd>
+      <dt>${t_('status')}</dt><dd>${t_('st')[t.status || 'todo']}</dd>
+      <dt>${t_('dependsOn')}</dt><dd>${deps}</dd>
+      <dt>${t_('unlocks')}</dt><dd>${nxt}</dd>
+    </dl>
+    <div class="done"><b>${t_('doneT')}</b>${doneText(t)}</div>`;
+  panel.classList.add('open'); render();
+}
+function closePanel() { panel.classList.remove('open'); sel = null; render(); }
+panel.addEventListener('click', e => { if (e.target.closest('.x')) return closePanel(); const a = e.target.closest('[data-go]');
+  if (a) { const id = a.dataset.go; closed.delete(byId[id].phase); openTask(id); document.querySelector(`[data-row="${id}"]`)?.scrollIntoView({block: 'center', behavior: 'smooth'}); } });
+addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+// ---- interactions
+function setLang(l) { lang = l; try { localStorage.setItem('ct-gantt-lang', l); } catch (e) {}
+  chrome(); render(); if (sel) openTask(sel); }
+document.getElementById('lang').onclick = e => { const b = e.target.closest('button'); if (b && b.dataset.l !== lang) setLang(b.dataset.l); };
+document.getElementById('now').onclick = e => { const x = e.target.closest('[data-open]'); if (x) { const id = x.dataset.open; closed.delete(byId[id].phase); openTask(id);
+  document.querySelector(`[data-row="${id}"]`)?.scrollIntoView({block: 'center', behavior: 'smooth'}); } };
+document.getElementById('ppl').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; who = b.dataset.who || null; chrome(); render(); };
+document.getElementById('zoom').onclick = e => { const b = e.target.closest('button'); if (!b) return; zoom = b.dataset.z; chrome(); render(); };
+document.getElementById('crit').onchange = e => { critOnly = e.target.checked; render(); };
+const grid = document.getElementById('grid'), tip = document.getElementById('tip');
+grid.addEventListener('click', e => { const ph = e.target.closest('[data-ph]'); if (ph) { const id = ph.dataset.ph; closed.has(id) ? closed.delete(id) : closed.add(id); render(); return; }
+  const r = e.target.closest('[data-row]'); if (r) openTask(r.dataset.row); });
+grid.addEventListener('mousemove', e => {
+  const r = e.target.closest('[data-row]'); const id = r ? r.dataset.row : null;
+  if (id !== hov) { hov = id; overlay(); }
+  if (!id) { tip.style.display = 'none'; return; }
+  const t = byId[id];
+  tip.innerHTML = `${bd(nm(t))}<br><bdi>${t.window_start ? dm(P(t.window_start)) + ' – ' + dm(P(t.window_end)) : t.milestone ? dmy(t.s) : dm(t.s) + ' – ' + dm(t.e)}</bdi> · ${ownerName(t.owner)}`;
+  tip.style.display = 'block';
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8) + 'px';
+  tip.style.top = Math.min(e.clientY + 16, innerHeight - tip.offsetHeight - 8) + 'px';
+});
+grid.addEventListener('mouseleave', () => { hov = null; tip.style.display = 'none'; overlay(); });
+addEventListener('resize', overlay);
+chrome(); render();
+if (location.hash && byId[location.hash.slice(1)]) openTask(location.hash.slice(1));
+</script>
+</body>
+</html>

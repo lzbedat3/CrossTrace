@@ -1,0 +1,974 @@
+{
+ "title_he": "CrossTrace · תוכנית העבודה",
+ "team": {
+  "L": {
+   "name_he": "למא",
+   "name_en": "Lama",
+   "role_en": "Full stack: backend, mobile app, dashboard, camera page",
+   "color": "#3b6fd8",
+   "role_he": "פיתוח Full Stack: Backend, Mobile App, Dashboard, Camera Page"
+  },
+  "N": {
+   "name_he": "נדין",
+   "name_en": "Nadine",
+   "role_en": "Computer vision: cameras, tracking, hands, touch detection, clips, wall screen",
+   "color": "#1f9d8a",
+   "role_he": "פיתוח Computer Vision, Tracking, זיהוי ידיים, Touch Detection, קליפים, Wall Screen"
+  },
+  "Q": {
+   "name_he": "קאסם",
+   "name_en": "Qasem",
+   "role_en": "Rules engine, scenario catalogue, evaluation",
+   "color": "#c27a12",
+   "role_he": "פיתוח Rules Engine, קטלוג תרחישים, הערכה ומדידה"
+  },
+  "ALL": {
+   "name_he": "כל הצוות",
+   "name_en": "All three",
+   "role_en": "Filming, reports, poster, presentation, rehearsals",
+   "color": "#8a5cd1",
+   "role_he": "צילומים, דוחות, פוסטר, הצגה וחזרות"
+  }
+ },
+ "calendar": [
+  {
+   "name_he": "חנוכה",
+   "start": "2026-12-05",
+   "end": "2026-12-12",
+   "kind": "holiday",
+   "name_en": "Hanukkah"
+  },
+  {
+   "name_he": "תקופת מבחנים א' (משוער)",
+   "start": "2027-01-24",
+   "end": "2027-02-12",
+   "kind": "exams",
+   "name_en": "Exams (est.)"
+  },
+  {
+   "name_he": "פסח",
+   "start": "2027-04-21",
+   "end": "2027-04-29",
+   "kind": "holiday",
+   "name_en": "Passover"
+  },
+  {
+   "name_he": "יום העצמאות",
+   "start": "2027-05-12",
+   "end": "2027-05-12",
+   "kind": "holiday",
+   "name_en": "Independence Day"
+  }
+ ],
+ "phases": [
+  {
+   "id": "P0",
+   "part": "A",
+   "name_he": "מתחילים",
+   "name_en": "Getting started"
+  },
+  {
+   "id": "P1",
+   "part": "A",
+   "name_he": "מטבח הניסוי והצילומים",
+   "name_en": "Test kitchen and filming"
+  },
+  {
+   "id": "P2",
+   "part": "A",
+   "name_he": "בונים את המערכת",
+   "name_en": "Building the system"
+  },
+  {
+   "id": "P3",
+   "part": "A",
+   "name_he": "מחברים, בודקים ומגישים",
+   "name_en": "Connect, test, submit"
+  },
+  {
+   "id": "P4",
+   "part": "B",
+   "name_he": "מרחיבים את המערכת",
+   "name_en": "Growing the system"
+  },
+  {
+   "id": "P5",
+   "part": "B",
+   "name_he": "יום צילום שני",
+   "name_en": "Second filming day"
+  },
+  {
+   "id": "P6",
+   "part": "B",
+   "name_he": "מסיימים ומציגים",
+   "name_en": "Finish and present"
+  }
+ ],
+ "tasks": [
+  {
+   "id": "A1",
+   "phase": "P0",
+   "owner": "ALL",
+   "start": "2026-11-01",
+   "end": "2026-11-18",
+   "deps": [],
+   "status": "in_progress",
+   "name_he": "סוגרים את התוכנית והגאנט",
+   "name_en": "Finish the plan and Gantt",
+   "done": "All three of us agree on the plan and send it to Prof. Mor.",
+   "effort": 2,
+   "done_he": "שלושתנו מסכימים על התוכנית, והיא נשלחת לפרופ' מור."
+  },
+  {
+   "id": "M1",
+   "phase": "P0",
+   "owner": "ALL",
+   "start": "2026-11-19",
+   "end": "2026-11-19",
+   "deps": [
+    "A1"
+   ],
+   "milestone": true,
+   "name_he": "פגישה ראשונה עם פרופ' מור",
+   "name_en": "First meeting with Prof. Mor",
+   "done": "We present the idea and the plan, and agree how often to send updates.",
+   "done_he": "מציגים את הרעיון והתוכנית, ומסכמים איתה כל כמה זמן לשלוח עדכונים."
+  },
+  {
+   "id": "A2",
+   "phase": "P0",
+   "owner": "L",
+   "start": "2026-11-19",
+   "end": "2026-11-26",
+   "deps": [
+    "A1"
+   ],
+   "name_he": "מקימים Repo וסביבת עבודה",
+   "name_en": "Set up the repo and dev setup",
+   "done": "Everyone has a working setup, and every push runs the tests.",
+   "effort": 1,
+   "done_he": "לכל אחד יש סביבה עובדת, וכל Push מריץ את הבדיקות."
+  },
+  {
+   "id": "A3",
+   "phase": "P0",
+   "owner": "L",
+   "start": "2026-11-22",
+   "end": "2026-12-03",
+   "deps": [
+    "A1"
+   ],
+   "name_he": "מגדירים את מטבח הניסוי שלנו",
+   "name_en": "Set up our test kitchen",
+   "done": "We decide where each station goes and which allergen each one forbids (gluten, sugar, dairy), and set up our own kitchen that way.",
+   "effort": 1,
+   "done_he": "מחליטים איפה כל עמדה, איזה אלרגן אסור בכל אחת (גלוטן, סוכר, חלב), ומסדרים את המטבח שלנו בהתאם."
+  },
+  {
+   "id": "A4",
+   "phase": "P0",
+   "owner": "Q",
+   "start": "2026-11-19",
+   "end": "2026-12-07",
+   "deps": [
+    "A1"
+   ],
+   "name_he": "כותבים את ה-SRS",
+   "name_en": "Write the SRS",
+   "done": "Functional and non-functional requirements, use cases and the hand rules. Each of us writes our part; Qasem puts it together.",
+   "effort": 4,
+   "done_he": "דרישות פונקציונליות ולא-פונקציונליות, תרחישי שימוש, וחוקי הידיים. כל אחד כותב את החלק שלו וקאסם מאחד."
+  },
+  {
+   "id": "A0",
+   "phase": "P0",
+   "owner": "L",
+   "start": "2026-12-06",
+   "end": "2026-12-15",
+   "deps": [
+    "A4"
+   ],
+   "effort": 2,
+   "name_he": "כותבים את ה-SDP",
+   "name_en": "Write the SDP",
+   "done_he": "מסמך שמסביר איך נבנה את מה שכתוב ב-SRS: מי עושה מה, לוח זמנים, כלים, סיכונים ואיך נבדוק את עצמנו.",
+   "done": "How we'll build what the SRS describes: who does what, schedule, tools, risks and how we test."
+  },
+  {
+   "id": "A5",
+   "phase": "P0",
+   "owner": "N",
+   "start": "2026-11-15",
+   "end": "2026-12-10",
+   "deps": [],
+   "name_he": "קוראים מה כבר קיים",
+   "name_en": "Review what already exists",
+   "done": "A short summary of research and competitors, and what we do differently.",
+   "effort": 2,
+   "done_he": "סיכום קצר של מחקרים ומתחרים, ומה אנחנו עושים אחרת."
+  },
+  {
+   "id": "A6",
+   "phase": "P1",
+   "owner": "N",
+   "start": "2026-11-24",
+   "end": "2026-12-03",
+   "deps": [
+    "A1"
+   ],
+   "name_he": "מתקינים את המצלמות במטבח הניסוי",
+   "name_en": "Install the cameras in the test kitchen",
+   "done": "One camera above, one at an angle, both connected to the computer, zone cards on the counter.",
+   "effort": 2,
+   "done_he": "מצלמה אחת מלמעלה ואחת בזווית, שתיהן מתחברות למחשב, וכרטיסי האזורים על השיש."
+  },
+  {
+   "id": "A7",
+   "phase": "P1",
+   "owner": "Q",
+   "start": "2026-11-26",
+   "end": "2026-12-10",
+   "deps": [
+    "A4~"
+   ],
+   "name_he": "כותבים תסריטי צילום",
+   "name_en": "Write the filming scripts",
+   "done": "A script for each scenario, and a sheet for writing down what happened and when.",
+   "effort": 2,
+   "done_he": "תסריט לכל תרחיש, ודף שבו רושמים מה קרה ומתי."
+  },
+  {
+   "id": "A8",
+   "phase": "P1",
+   "owner": "N",
+   "start": "2026-11-29",
+   "end": "2026-12-12",
+   "deps": [
+    "A6~"
+   ],
+   "name_he": "מקליטים משתי המצלמות יחד",
+   "name_en": "Record from both cameras together",
+   "done": "One command records both at once, and we can play the recording back.",
+   "effort": 2,
+   "done_he": "פקודה אחת מקליטה את שתיהן באותו זמן, ואפשר לנגן את ההקלטה שוב."
+  },
+  {
+   "id": "A9",
+   "phase": "P1",
+   "owner": "ALL",
+   "start": "2026-12-13",
+   "end": "2026-12-31",
+   "deps": [
+    "A7",
+    "A8"
+   ],
+   "name_he": "יום צילום ראשון",
+   "name_en": "First filming day",
+   "done": "At least 60 cases on video, including the hard ones: one-hand wash, a hand passing over, two cooks crossing.",
+   "effort": 3,
+   "done_he": "לפחות 60 מקרים מוקלטים, כולל המקרים הקשים: שטיפת יד אחת, יד שעוברת מעל, שני טבחים שמתחלפים."
+  },
+  {
+   "id": "A10",
+   "phase": "P1",
+   "owner": "Q",
+   "start": "2026-12-20",
+   "end": "2027-01-07",
+   "deps": [
+    "A9~"
+   ],
+   "name_he": "מסמנים את ההקלטות",
+   "name_en": "Label the recordings",
+   "done": "Each case has what really happened written down, and a second person checks some of them.",
+   "effort": 2,
+   "done_he": "לכל מקרה רשום מה באמת קרה, ומישהו שני בודק חלק מהם."
+  },
+  {
+   "id": "C1",
+   "phase": "P1",
+   "owner": "ALL",
+   "start": "2026-12-17",
+   "end": "2026-12-17",
+   "deps": [
+    "A4",
+    "A6",
+    "A0"
+   ],
+   "milestone": true,
+   "checkin": true,
+   "name_he": "עדכון לפרופ' מור: SRS ומצלמות",
+   "name_en": "Update to Prof. Mor: SRS and cameras",
+   "done": "An email with a short video and a few lines on what's done and what's next. A meeting only if she wants one.",
+   "window_start": "2026-12-10",
+   "window_end": "2026-12-24",
+   "done_he": "מייל עם סרטון קצר ושורה על מה עשינו ומה הלאה. פגישה רק אם היא רוצה."
+  },
+  {
+   "id": "A11",
+   "phase": "P2",
+   "owner": "N",
+   "start": "2026-12-08",
+   "end": "2026-12-28",
+   "deps": [
+    "A8~"
+   ],
+   "name_he": "המצלמה מזהה אנשים",
+   "name_en": "Camera detects people",
+   "done": "Up to 3 people tracked without the system mixing them up.",
+   "effort": 2,
+   "done_he": "עד 3 אנשים במעקב בלי שהמערכת מבלבלת ביניהם."
+  },
+  {
+   "id": "A12",
+   "phase": "P2",
+   "owner": "N",
+   "start": "2026-12-20",
+   "end": "2027-01-10",
+   "deps": [
+    "A11~"
+   ],
+   "name_he": "המצלמה מזהה ידיים",
+   "name_en": "Camera detects hands",
+   "done": "We see the fingertips and know whose hand is whose.",
+   "effort": 2,
+   "done_he": "רואים את קצות האצבעות, ויודעים איזו יד שייכת למי."
+  },
+  {
+   "id": "A13",
+   "phase": "P2",
+   "owner": "N",
+   "start": "2027-01-03",
+   "end": "2027-01-24",
+   "deps": [
+    "A12~"
+   ],
+   "name_he": "נגיעה או רק מעבר מעל?",
+   "name_en": "Touch, or just passing over?",
+   "done": "The system says whether the hand touched, maybe touched, or just passed over. We compare one camera to two.",
+   "effort": 4,
+   "done_he": "המערכת אומרת אם היד נגעה, אולי נגעה, או רק עברה מעל. משווים בין מצלמה אחת לשתיים."
+  },
+  {
+   "id": "A14",
+   "phase": "P2",
+   "owner": "Q",
+   "start": "2026-12-06",
+   "end": "2026-12-31",
+   "deps": [
+    "A4~"
+   ],
+   "name_he": "החוקים של הידיים",
+   "name_en": "The hand rules",
+   "done": "Washing one hand cleans nothing. Washing both cleans both. A clean hand touching a dirty one gets dirty.",
+   "effort": 3,
+   "done_he": "שטיפה ביד אחת לא מנקה. שטיפה בשתי ידיים מנקה את שתיהן. יד נקייה שנוגעת ביד מלוכלכת מתלכלכת."
+  },
+  {
+   "id": "A15",
+   "phase": "P2",
+   "owner": "Q",
+   "start": "2026-12-27",
+   "end": "2027-01-14",
+   "deps": [
+    "A14~"
+   ],
+   "name_he": "מה עושים כשלא בטוחים",
+   "name_en": "What to do when we're not sure",
+   "done": "An uncertain touch doesn't trigger an alarm, only a request to check. Washing clears the doubt.",
+   "effort": 2,
+   "done_he": "נגיעה לא ודאית לא מקפיצה אזעקה, רק בקשה לבדוק. שטיפה מבטלת את הספק."
+  },
+  {
+   "id": "A16",
+   "phase": "P2",
+   "owner": "Q",
+   "start": "2026-12-13",
+   "end": "2027-01-17",
+   "deps": [
+    "A14~"
+   ],
+   "name_he": "בדיקה לכל תרחיש",
+   "name_en": "A test for every scenario",
+   "done": "Every scenario on the list is an automatic test, and they all pass.",
+   "effort": 1,
+   "done_he": "כל תרחיש מהרשימה הוא בדיקה אוטומטית, וכולן עוברות."
+  },
+  {
+   "id": "A17",
+   "phase": "P2",
+   "owner": "N",
+   "start": "2027-01-04",
+   "end": "2027-01-14",
+   "deps": [
+    "A8",
+    "A14"
+   ],
+   "name_he": "מריצים הקלטות דרך המערכת",
+   "name_en": "Run recordings through the system",
+   "done": "Any recording from filming day goes through the system and shows what it detected.",
+   "effort": 1,
+   "done_he": "כל הקלטה מיום הצילום עוברת דרך המערכת ומראה מה היא זיהתה."
+  },
+  {
+   "id": "A18",
+   "phase": "P2",
+   "owner": "L",
+   "start": "2026-11-26",
+   "end": "2026-12-17",
+   "deps": [
+    "A2"
+   ],
+   "name_he": "בונים את בסיס הנתונים",
+   "name_en": "Build the database",
+   "done": "Tables for branches, staff, violations and clips, and each branch sees only its own.",
+   "effort": 2,
+   "done_he": "טבלאות לסניפים, עובדים, הפרות וקליפים, וכל סניף רואה רק את שלו."
+  },
+  {
+   "id": "A19",
+   "phase": "P2",
+   "owner": "L",
+   "start": "2026-12-14",
+   "end": "2026-12-17",
+   "deps": [
+    "A2"
+   ],
+   "name_he": "התראה זמנית לטלפון",
+   "name_en": "Temporary phone alert",
+   "done": "The phone gets an alert within 2 seconds, until the app is ready.",
+   "effort": 1,
+   "done_he": "הטלפון מקבל התראה תוך 2 שניות, עד שהאפליקציה מוכנה."
+  },
+  {
+   "id": "A20",
+   "phase": "P2",
+   "owner": "L",
+   "start": "2026-12-17",
+   "end": "2027-01-14",
+   "deps": [
+    "A18"
+   ],
+   "name_he": "האפליקציה מקבלת התראות",
+   "name_en": "The app gets alerts",
+   "done": "You can log in, get an alert and tap \"handled\" right from the notification.",
+   "effort": 3,
+   "done_he": "אפשר להתחבר, מקבלים התראה, ולוחצים \"טופל\" ישר מההתראה."
+  },
+  {
+   "id": "A21",
+   "phase": "P2",
+   "owner": "N",
+   "start": "2027-01-10",
+   "end": "2027-01-24",
+   "deps": [
+    "A12"
+   ],
+   "name_he": "שומרים קליפ של 4 שניות",
+   "name_en": "Save a 4-second clip",
+   "done": "A clip from 2 seconds before the touch to 2 after, with the hand's path and faces blurred.",
+   "effort": 2,
+   "done_he": "קליפ מ-2 שניות לפני הנגיעה ועד 2 אחרי, עם מסלול היד ופנים מטושטשות."
+  },
+  {
+   "id": "A22",
+   "phase": "P2",
+   "owner": "L",
+   "start": "2027-01-07",
+   "end": "2027-01-24",
+   "deps": [
+    "A18",
+    "A21~"
+   ],
+   "name_he": "מחברים את המטבח לענן",
+   "name_en": "Connect the kitchen to the cloud",
+   "done": "Alerts and clips reach the cloud, and nothing is lost if the internet drops.",
+   "effort": 2,
+   "done_he": "ההתראות והקליפים מגיעים לענן, וגם אם האינטרנט נופל שום דבר לא הולך לאיבוד."
+  },
+  {
+   "id": "A23",
+   "phase": "P3",
+   "owner": "ALL",
+   "start": "2027-01-17",
+   "end": "2027-01-27",
+   "deps": [
+    "A13~",
+    "A15",
+    "A20",
+    "A22~"
+   ],
+   "name_he": "מחברים הכול יחד",
+   "name_en": "Put it all together",
+   "done": "A real touch in the test kitchen arrives as an alert on the phone.",
+   "effort": 2,
+   "done_he": "נגיעה אמיתית במטבח הניסוי מגיעה כהתראה לטלפון."
+  },
+  {
+   "id": "M2",
+   "phase": "P3",
+   "owner": "ALL",
+   "start": "2027-01-28",
+   "end": "2027-01-28",
+   "deps": [
+    "A23"
+   ],
+   "milestone": true,
+   "name_he": "ההתראה הראשונה עובדת",
+   "name_en": "The first alert works",
+   "done": "We touch, and within 3 seconds the phone gets an alert with a clip.",
+   "done_he": "נוגעים, ותוך 3 שניות הטלפון מקבל התראה עם קליפ."
+  },
+  {
+   "id": "A24",
+   "phase": "P3",
+   "owner": "Q",
+   "start": "2027-01-21",
+   "end": "2027-02-04",
+   "deps": [
+    "A10",
+    "A17",
+    "A13~"
+   ],
+   "name_he": "בודקים כמה זה עובד",
+   "name_en": "Measure how well it works",
+   "done": "How many violations were caught, how many false alarms, and how long an alert takes.",
+   "effort": 3,
+   "done_he": "כמה הפרות נתפסו, כמה אזעקות שווא, וכמה זמן לוקחת התראה."
+  },
+  {
+   "id": "A25",
+   "phase": "P3",
+   "owner": "ALL",
+   "start": "2027-01-14",
+   "end": "2027-02-10",
+   "deps": [
+    "A4"
+   ],
+   "name_he": "כותבים את הדו\"ח של חלק א'",
+   "name_en": "Write the Part A report",
+   "done": "Each of us writes our part, Qasem edits, and a draft goes to Prof. Mor by 3 Feb.",
+   "effort": 4,
+   "done_he": "כל אחד כותב את החלק שלו, קאסם עורך, וטיוטה נשלחת לפרופ' מור עד 3.2."
+  },
+  {
+   "id": "C2",
+   "phase": "P3",
+   "owner": "ALL",
+   "start": "2027-02-03",
+   "end": "2027-02-03",
+   "deps": [
+    "M2",
+    "A25~"
+   ],
+   "milestone": true,
+   "checkin": true,
+   "name_he": "עדכון לפרופ' מור: התראה ראשונה",
+   "name_en": "Update to Prof. Mor: first alert",
+   "done": "An email with a short video and the report draft. A meeting only if she wants one.",
+   "window_start": "2027-01-27",
+   "window_end": "2027-02-10",
+   "done_he": "מייל עם סרטון קצר וטיוטת הדו\"ח. פגישה רק אם היא רוצה."
+  },
+  {
+   "id": "A26",
+   "phase": "P3",
+   "owner": "ALL",
+   "start": "2027-02-05",
+   "end": "2027-02-11",
+   "deps": [
+    "M2"
+   ],
+   "name_he": "מקליטים סרטון קצר",
+   "name_en": "Record a short video",
+   "done": "A 2–3 minute video showing it works, attached to the report.",
+   "effort": 1,
+   "done_he": "סרטון של 2–3 דקות שמראה שזה עובד, מצורף לדו\"ח."
+  },
+  {
+   "id": "M3",
+   "phase": "P3",
+   "owner": "ALL",
+   "start": "2027-02-14",
+   "end": "2027-02-14",
+   "deps": [
+    "A24",
+    "A25",
+    "A26"
+   ],
+   "milestone": true,
+   "name_he": "מגישים את חלק א'",
+   "name_en": "Submit Part A",
+   "done": "Report and video. No presentation in Part A.",
+   "done_he": "דו\"ח וסרטון. אין הצגה בחלק א'."
+  },
+  {
+   "id": "B1",
+   "phase": "P4",
+   "owner": "ALL",
+   "start": "2027-02-15",
+   "end": "2027-03-04",
+   "deps": [
+    "M3"
+   ],
+   "name_he": "מתקנים לפי ההערות",
+   "name_en": "Fix what the review asked for",
+   "done": "Every comment has a fix or an answer.",
+   "effort": 2,
+   "done_he": "לכל הערה יש תיקון או תשובה."
+  },
+  {
+   "id": "B2",
+   "phase": "P4",
+   "owner": "Q",
+   "start": "2027-03-01",
+   "end": "2027-03-21",
+   "deps": [
+    "B1~"
+   ],
+   "name_he": "כלים מעבירים לכלוך",
+   "name_en": "Tools carry contamination too",
+   "done": "A knife from the flour area touching the gluten-free board raises an alarm.",
+   "effort": 3,
+   "done_he": "סכין מאזור הקמח שנוגעת בקרש ללא גלוטן מקפיצה אזעקה."
+  },
+  {
+   "id": "B3",
+   "phase": "P4",
+   "owner": "L",
+   "start": "2027-03-01",
+   "end": "2027-03-21",
+   "deps": [
+    "B1~"
+   ],
+   "name_he": "האפליקציה: רשימה וקליפים",
+   "name_en": "The app: list and clips",
+   "done": "See today's alerts, watch the clip, mark what's handled. In Hebrew, right to left.",
+   "effort": 3,
+   "done_he": "רואים את ההתראות של היום, צופים בקליפ, ומסמנים מה טופל. בעברית, מימין לשמאל."
+  },
+  {
+   "id": "C3",
+   "phase": "P4",
+   "owner": "ALL",
+   "start": "2027-03-25",
+   "end": "2027-03-25",
+   "deps": [
+    "B2~",
+    "B3~"
+   ],
+   "milestone": true,
+   "checkin": true,
+   "name_he": "עדכון לפרופ' מור: אמצע חלק ב'",
+   "name_en": "Update to Prof. Mor: mid Part B",
+   "done": "An email with a short video. A meeting only if she wants one.",
+   "window_start": "2027-03-18",
+   "window_end": "2027-04-01",
+   "done_he": "מייל עם סרטון קצר. פגישה רק אם היא רוצה."
+  },
+  {
+   "id": "B4",
+   "phase": "P4",
+   "owner": "L",
+   "start": "2027-03-15",
+   "end": "2027-03-25",
+   "deps": [
+    "B3~"
+   ],
+   "name_he": "אם אף אחד לא מגיב",
+   "name_en": "If nobody responds",
+   "done": "After a minute with no response, the alert goes to the head cook. Clips are deleted after a week.",
+   "effort": 1,
+   "done_he": "אחרי דקה בלי תגובה, ההתראה עוברת לטבח הראשי. קליפים נמחקים אחרי שבוע."
+  },
+  {
+   "id": "B5",
+   "phase": "P4",
+   "owner": "L",
+   "start": "2027-03-22",
+   "end": "2027-04-18",
+   "deps": [
+    "B3~"
+   ],
+   "name_he": "מסך לבעל העסק",
+   "name_en": "A screen for the owner",
+   "done": "All branches, violations, a daily report and a map of where most mistakes happen.",
+   "effort": 4,
+   "done_he": "כל הסניפים, ההפרות, דוח יומי, ומפה של איפה קורות הכי הרבה טעויות."
+  },
+  {
+   "id": "B6",
+   "phase": "P4",
+   "owner": "N",
+   "start": "2027-03-08",
+   "end": "2027-03-28",
+   "deps": [
+    "B1"
+   ],
+   "name_he": "מסך על הקיר במטבח",
+   "name_en": "A screen on the kitchen wall",
+   "done": "Every cook sees the colour of their hands, even without internet.",
+   "effort": 2,
+   "done_he": "כל טבח רואה את הצבע של הידיים שלו, גם בלי אינטרנט."
+  },
+  {
+   "id": "B7",
+   "phase": "P4",
+   "owner": "L",
+   "start": "2027-03-29",
+   "end": "2027-04-11",
+   "deps": [
+    "B6~"
+   ],
+   "name_he": "הטלפון הופך למצלמה",
+   "name_en": "A phone becomes a camera",
+   "done": "Scan a QR code, pick \"above\" or \"angle\", and the camera works.",
+   "effort": 2,
+   "done_he": "סורקים QR, בוחרים \"למעלה\" או \"זווית\", והמצלמה עובדת."
+  },
+  {
+   "id": "B8",
+   "phase": "P4",
+   "owner": "N",
+   "start": "2027-03-22",
+   "end": "2027-04-11",
+   "deps": [
+    "B1"
+   ],
+   "name_he": "עובד גם בתנאים קשים",
+   "name_en": "Works in tough conditions",
+   "done": "Gloves, steam, bright light and three cooks at once don't break it.",
+   "effort": 3,
+   "done_he": "כפפות, אדים, אור חזק ושלושה טבחים יחד לא מפילים את המערכת."
+  },
+  {
+   "id": "C4",
+   "phase": "P4",
+   "owner": "ALL",
+   "start": "2027-04-22",
+   "end": "2027-04-22",
+   "deps": [
+    "B5~",
+    "B6"
+   ],
+   "milestone": true,
+   "checkin": true,
+   "name_he": "עדכון לפרופ' מור: מסכים",
+   "name_en": "Update to Prof. Mor: screens",
+   "done": "An email with a short video. A meeting only if she wants one.",
+   "window_start": "2027-04-15",
+   "window_end": "2027-05-02",
+   "done_he": "מייל עם סרטון קצר. פגישה רק אם היא רוצה."
+  },
+  {
+   "id": "B9",
+   "phase": "P5",
+   "owner": "ALL",
+   "start": "2027-04-04",
+   "end": "2027-04-20",
+   "deps": [
+    "B2",
+    "B8~"
+   ],
+   "name_he": "יום צילום שני",
+   "name_en": "Second filming day",
+   "done": "We reach 100 recorded cases in total, including tools and gloves.",
+   "effort": 3,
+   "done_he": "מגיעים ל-100 מקרים מוקלטים בסך הכול, כולל כלים וכפפות."
+  },
+  {
+   "id": "B10",
+   "phase": "P5",
+   "owner": "Q",
+   "start": "2027-04-18",
+   "end": "2027-05-02",
+   "deps": [
+    "B9~"
+   ],
+   "name_he": "מסמנים את ההקלטות החדשות",
+   "name_en": "Label the new recordings",
+   "done": "Same as the first time.",
+   "effort": 3,
+   "done_he": "כמו בפעם הראשונה."
+  },
+  {
+   "id": "B11",
+   "phase": "P6",
+   "owner": "ALL",
+   "start": "2027-04-25",
+   "end": "2027-05-08",
+   "deps": [
+    "B5",
+    "B7",
+    "B9"
+   ],
+   "name_he": "הכול עובד יחד, ומהר",
+   "name_en": "Everything works together, fast",
+   "done": "20 tries, and in each one the alert arrives within 3 seconds.",
+   "effort": 3,
+   "done_he": "20 ניסיונות, ובכולם ההתראה מגיעה תוך 3 שניות."
+  },
+  {
+   "id": "X1",
+   "phase": "P6",
+   "owner": "ALL",
+   "start": "2027-05-09",
+   "end": "2027-05-15",
+   "deps": [
+    "B11"
+   ],
+   "buffer": true,
+   "effort": 0,
+   "name_he": "שבוע רזרבה",
+   "name_en": "Spare week",
+   "done": "Nothing planned. If something slipped, there's time. If not, more testing.",
+   "done_he": "לא מתכננים כלום. אם משהו התעכב, יש זמן. אם לא, בודקים עוד."
+  },
+  {
+   "id": "M4",
+   "phase": "P6",
+   "owner": "ALL",
+   "start": "2027-05-16",
+   "end": "2027-05-16",
+   "deps": [
+    "X1"
+   ],
+   "milestone": true,
+   "name_he": "מפסיקים להוסיף דברים",
+   "name_en": "Stop adding features",
+   "done": "From here on we only fix, measure and rehearse.",
+   "done_he": "מכאן רק מתקנים, מודדים ומתאמנים."
+  },
+  {
+   "id": "B12",
+   "phase": "P6",
+   "owner": "Q",
+   "start": "2027-05-09",
+   "end": "2027-05-23",
+   "deps": [
+    "B10",
+    "B11"
+   ],
+   "name_he": "מדידה סופית ומשוב",
+   "name_en": "Final measurements and feedback",
+   "done": "Results against our targets, and what 5 people who tried the app thought.",
+   "effort": 3,
+   "done_he": "התוצאות מול היעדים, ומה חשבו 5 אנשים שניסו את האפליקציה."
+  },
+  {
+   "id": "C5",
+   "phase": "P6",
+   "owner": "ALL",
+   "start": "2027-05-20",
+   "end": "2027-05-20",
+   "deps": [
+    "M4",
+    "B13~",
+    "B16~"
+   ],
+   "milestone": true,
+   "checkin": true,
+   "name_he": "עדכון לפרופ' מור: לפני ההצגה",
+   "name_en": "Update to Prof. Mor: before the final",
+   "done": "An email with a video, the book draft and the poster. A meeting only if she wants one.",
+   "window_start": "2027-05-13",
+   "window_end": "2027-05-27",
+   "done_he": "מייל עם סרטון, טיוטת הספר והפוסטר. פגישה רק אם היא רוצה."
+  },
+  {
+   "id": "B13",
+   "phase": "P6",
+   "owner": "ALL",
+   "start": "2027-05-02",
+   "end": "2027-05-27",
+   "deps": [
+    "B1"
+   ],
+   "name_he": "כותבים את ספר הפרויקט",
+   "name_en": "Write the project book",
+   "done": "Each of us writes our chapters, Qasem edits, draft to Prof. Mor by 20 May.",
+   "effort": 5,
+   "done_he": "כל אחד כותב את הפרקים שלו, קאסם עורך, וטיוטה לפרופ' מור עד 20.5."
+  },
+  {
+   "id": "B14",
+   "phase": "P6",
+   "owner": "N",
+   "start": "2027-05-16",
+   "end": "2027-05-23",
+   "deps": [
+    "M4"
+   ],
+   "name_he": "סרטון הדגמה",
+   "name_en": "Demo video",
+   "done": "A 2-minute video, plus a backup recording in case something fails on the day.",
+   "effort": 1,
+   "done_he": "סרטון של 2 דקות, וגם הקלטה לגיבוי אם משהו ייפול ביום ההצגה."
+  },
+  {
+   "id": "B15",
+   "phase": "P6",
+   "owner": "ALL",
+   "start": "2027-05-17",
+   "end": "2027-05-30",
+   "deps": [
+    "M4"
+   ],
+   "name_he": "מתאמנים על ההצגה",
+   "name_en": "Rehearse the presentation",
+   "done": "Five full run-throughs. We also practise what to do if the internet or a camera drops.",
+   "effort": 4,
+   "done_he": "חמש חזרות מלאות. מתרגלים גם מה עושים אם האינטרנט נופל או מצלמה מתנתקת."
+  },
+  {
+   "id": "B16",
+   "phase": "P6",
+   "owner": "ALL",
+   "start": "2027-05-09",
+   "end": "2027-05-27",
+   "deps": [
+    "B12~"
+   ],
+   "name_he": "מכינים פוסטר",
+   "name_en": "Make the poster",
+   "done": "The problem, how it works, the results, and a future idea: alerts on a smartwatch.",
+   "effort": 3,
+   "done_he": "הבעיה, איך זה עובד, התוצאות, ורעיון לעתיד: התראה בשעון חכם."
+  },
+  {
+   "id": "M5",
+   "phase": "P6",
+   "owner": "ALL",
+   "start": "2027-06-01",
+   "end": "2027-06-01",
+   "deps": [
+    "B12",
+    "B13",
+    "B14",
+    "B15",
+    "B16"
+   ],
+   "milestone": true,
+   "name_he": "ההצגה הסופית",
+   "name_en": "Final presentation",
+   "done": "Live demo, poster and results. Each of us presents our part.",
+   "done_he": "הדגמה חיה, פוסטר ותוצאות. כל אחד מציג את החלק שלו."
+  },
+  {
+   "id": "M6",
+   "phase": "P6",
+   "owner": "L",
+   "start": "2027-06-15",
+   "end": "2027-06-15",
+   "deps": [
+    "M5"
+   ],
+   "milestone": true,
+   "name_he": "מראים למחמוד",
+   "name_en": "Show it to Mahmoud",
+   "done": "Mahmoud sees a working system, and we talk about trying it in the new branches.",
+   "done_he": "מחמוד רואה מערכת שעובדת, ומדברים על ניסיון בסניפים החדשים."
+  }
+ ],
+ "final_id": "M5",
+ "title_en": "CrossTrace · Work plan"
+}
